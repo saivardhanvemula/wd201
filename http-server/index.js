@@ -21,7 +21,7 @@ fs.readFile("registration.html", (err, registration) => {
   if (err) {
     throw err;
   }
-registrationContent=registration
+  registrationContent = registration
 });
 http
   .createServer((request, response) => {
@@ -35,6 +35,7 @@ http
       case "/registration":
         response.write(registrationContent);
         response.end();
+        break;
       default:
         response.write(homeContent);
         response.end();
