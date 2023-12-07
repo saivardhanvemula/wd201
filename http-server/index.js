@@ -35,6 +35,7 @@ http
       case "/registration":
         response.write(registrationContent);
         response.end();
+        break;
       default:
         response.write(homeContent);
         response.end();
