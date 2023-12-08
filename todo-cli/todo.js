@@ -59,7 +59,7 @@ const todoList = () => {
       res=res+elestr
       res=res+"\n"
     });
-    return res
+    return res.slice(0,-1)
     // Format the To-Do list here, and return the output string
     // as per the format given above.
   }
