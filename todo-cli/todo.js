@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 const todoList = () => {
   const time= async (ms)=>{
     return new Promise((resolve,reject)=>{

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx test
+npx lint-staged
+# cd todo-cli && npm testcd todo-cli && npm test
