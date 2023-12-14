@@ -1,70 +1,70 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const todoList = () => {
-  const time= async (ms)=>{
-    return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
+  const time = async (ms) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
         resolve();
-      },ms);
+      }, ms);
     });
   };
-  all = []
+  all = [];
   const add = (todoItem) => {
-           all.push(todoItem)
-  }
+    all.push(todoItem);
+  };
   const markAsComplete = (index) => {
-    all[index].completed = true
-  }
+    all[index].completed = true;
+  };
 
   const overdue = () => {
-    res = []
-    all.forEach(ele => {
-      if (ele.dueDate ===yesterday) {
-        res.push(ele)
+    res = [];
+    all.forEach((ele) => {
+      if (ele.dueDate === yesterday) {
+        res.push(ele);
       }
     });
-    return res
+    return res;
     // Write the date check condition here and return the array
     // of overdue items accordingly.
-  }
+  };
 
   const dueToday = () => {
-    res = []
-    all.forEach(ele => {
+    res = [];
+    all.forEach((ele) => {
       if (ele.dueDate === today) {
-        res.push(ele)
+        res.push(ele);
       }
     });
-    return res
+    return res;
     // Write the date check condition here and return the array
     // of todo items that are due today accordingly.
-  }
+  };
   const dueLater = () => {
-    res = []
-    all.forEach(ele => {
-      if (ele.dueDate ===tomorrow) {
-        res.push(ele)
+    res = [];
+    all.forEach((ele) => {
+      if (ele.dueDate === tomorrow) {
+        res.push(ele);
       }
     });
-    return res
+    return res;
     // Write the date check condition here and return the array
     // of todo items that are due later accordingly.
-  }
+  };
 
-  const toDisplayableList = (list)  => {
-    let res = ""
-    list.forEach(ele => {
-      let elestr = ""
-      let com = (ele.completed) ? "[x]" : "[ ]";
-      let d = (ele.dueDate === today) ? "" : ele.dueDate;
-      elestr= `${com} ${ele.title} ${d}`
-      res=res+elestr
-      res=res+"\n"
+  const toDisplayableList = (list) => {
+    let res = "";
+    list.forEach((ele) => {
+      let elestr = "";
+      let com = ele.completed ? "[x]" : "[ ]";
+      let d = ele.dueDate === today ? "" : ele.dueDate;
+      elestr = `${com} ${ele.title} ${d}`;
+      res = res + elestr;
+      res = res + "\n";
     });
-    return res.slice(0,-1)
+    return res.slice(0, -1);
     // Format the To-Do list here, and return the output string
     // as per the format given above.
-  }
+  };
 
   return {
     all,
@@ -73,28 +73,28 @@ const todoList = () => {
     overdue,
     dueToday,
     dueLater,
-    toDisplayableList
+    toDisplayableList,
   };
 };
-module.exports=todoList;
+module.exports = todoList;
 // ####################################### #
 // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
 // ####################################### #
 
-// const todos = todoList();
+const todos = todoList();
 
-// const formattedDate = d => {
-//   return d.toISOString().split("T")[0]
-// }
+const formattedDate = (d) => {
+  return d.toISOString().split("T")[0];
+};
 
-// var dateToday = new Date()
-// const today = formattedDate(dateToday)
-// const yesterday = formattedDate(
-//   new Date(new Date().setDate(dateToday.getDate() - 1))
-// )
-// const tomorrow = formattedDate(
-//   new Date(new Date().setDate(dateToday.getDate() + 1))
-// )
+var dateToday = new Date();
+const today = formattedDate(dateToday);
+const yesterday = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() - 1)),
+);
+const tomorrow = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() + 1)),
+);
 
 // todos.add({ title: 'Submit assignment', dueDate: yesterday, completed: false })
 // todos.add({ title: 'Pay rent', dueDate: today, completed: true })
