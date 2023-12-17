@@ -43,19 +43,18 @@ describe("first test suites", () => {
     expect(all[0].completed).toBe(true);
   });
   test("due today", () => {
-    let todays = dueToday();
-    expect(todays).toStrictEqual([
-      { completed: false, dueDate: "2023-12-14", title: "second test case" },
+    expect(dueToday()).toStrictEqual([
+      { completed: false, dueDate: "2023-12-17", title: "second test case" },
     ]);
   });
   test("over due", () => {
     expect(overdue()).toStrictEqual([
-      { completed: true, dueDate: "2023-12-13", title: "First test case" },
+      { completed: true, dueDate: "2023-12-16", title: "First test case" },
     ]);
   });
   test("due later", () => {
     expect(dueLater()).toStrictEqual([
-      { completed: false, dueDate: "2023-12-15", title: "third test case" },
+      { completed: false, dueDate: "2023-12-18", title: "third test case" },
     ]);
   });
 });

@@ -1,9 +1,18 @@
-//  TodoModel.js
-const { DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("./connectDB.js");
 
-const Todo = sequelize.define(
-  "Todo",
+class Todo extends Model {
+  static async addTask(params) {
+    return await Todo.create(params);
+  }
+
+  displayableString() {
+    return `${this.completed ? "[x]" : "[ ]"} ${this.id}.${this.title} - ${
+      this.dueDate
+    }`;
+  }
+}
+Todo.init(
   {
     // Model attributes are defined here
     title: {
@@ -13,13 +22,14 @@ const Todo = sequelize.define(
     dueDate: {
       type: DataTypes.DATEONLY,
     },
-    complete: {
+    completed: {
       type: DataTypes.BOOLEAN,
     },
   },
   {
-    tableName: "todos",
+    sequelize,
   },
 );
+
+Todo.sync();
 module.exports = Todo;
-Todo.sync(); // create the table
