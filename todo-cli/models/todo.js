@@ -1,18 +1,91 @@
-/* eslint-disable no-unused-vars */
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class todo extends Model {
+  class Todo extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static async addTask(params) {
+      return await Todo.create(params);
+    }
+    static async showList() {
+      console.log("My Todo list \n");
+
+      console.log("Overdue");
+      // FILL IN HERE
+      const overduetask = await Todo.overdue();
+      overduetask.forEach((task) => console.log(task.displayableString()));
+      console.log("\n");
+
+      console.log("Due Today");
+      // FILL IN HERE
+      const dueTodaytask = await Todo.dueToday();
+      dueTodaytask.forEach((task) => console.log(task.displayableString()));
+
+      console.log("\n");
+
+      console.log("Due Later");
+      const duetask = await Todo.dueLater();
+      duetask.forEach((task) => console.log(task.displayableString()));
+    }
+
+    static async overdue() {
+      const { Sequelize } = require("sequelize");
+      return await Todo.findAll({
+        where: {
+          dueDate: {
+            [Sequelize.Op.lt]: new Date(),
+          },
+        },
+      });
+    }
+    static async dueToday() {
+      const { Sequelize } = require("sequelize");
+      const today = new Date();
+
+      return await Todo.findAll({
+        where: {
+          dueDate: {
+            [Sequelize.Op.gte]: today,
+          },
+          completed: false,
+        },
+      });
+    }
+
+    static async dueLater() {
+      const { Sequelize } = require("sequelize");
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      return await Todo.findAll({
+        where: {
+          dueDate: {
+            [Sequelize.Op.gte]: tomorrow,
+          },
+          completed: false,
+        },
+      });
+    }
+
+    static async markAsComplete(id) {
+      const todo = await Todo.findByPk(id);
+      if (todo) {
+        todo.completed = true;
+        await todo.save();
+      }
+    }
+    displayableString() {
+      const checkbox = this.completed ? "[x]" : "[ ]";
+      if (!(this.dueDate === new Date().toISOString().split("T")[0])) {
+        return `${this.id}. ${checkbox} ${this.title} ${this.dueDate}`;
+      }
+      return `${this.id}. ${checkbox} ${this.title}`;
     }
   }
-  todo.init(
+  Todo.init(
     {
       title: DataTypes.STRING,
       dueDate: DataTypes.DATEONLY,
@@ -20,8 +93,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "todo",
+      modelName: "Todo",
     },
   );
-  return todo;
+  return Todo;
 };
